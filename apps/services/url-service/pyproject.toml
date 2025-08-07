@@ -1,0 +1,19 @@
+[project]
+name = "url-service"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "k1rson",email = "vlad2k15@bk.ru"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi (>=0.116.1,<0.117.0)",
+    "pydantic-settings (>=2.10.1,<3.0.0)",
+    "sqlalchemy (>=2.0.42,<3.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
