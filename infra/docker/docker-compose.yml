@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgresql-15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - shortlink-network
+
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik-2.1
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ../traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ../traefik/config:/etc/traefik/config:ro
+    networks:
+      - shortlink-network
+
+  auth-service:
+    container_name: auth-service-0.1
+    build:
+      context: ../../apps/services/auth
+      dockerfile: docker/Dockerfile.dev
+    ports:
+      - "8000:8000"
+    env_file:
+      - ../../apps/services/auth/.env
+    volumes:
+      - ../../apps/services/auth/src:/app
+    depends_on:
+      - postgres
+    networks:
+      - shortlink-network
+
+volumes:
+  postgres_data:
+
+networks:
+  shortlink-network:
+    driver: bridge
