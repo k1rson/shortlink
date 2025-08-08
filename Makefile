@@ -12,7 +12,6 @@ up:
 down:
 	docker compose -f infra/docker/$(COMPOSE_FILE) down
 
-restart: down up
 
 logs:
 	docker compose -f infra/docker/$(COMPOSE_FILE) logs -f
@@ -32,4 +31,11 @@ ps:
 clean:
 	docker compose -f infra/docker/$(COMPOSE_FILE) down -v --remove-orphans
 
-run: build up
+format:
+	git add .
+	pre-commit run --all-files
+	git add .
+
+run: build up logs
+
+restart: down up
