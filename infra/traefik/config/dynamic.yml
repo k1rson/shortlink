@@ -1,13 +1,13 @@
 http:
   routers:
-    auth-service:
-      rule: "Host(`auth.shortlink`)"
-      service: auth-service
+    url-service:
+      rule: "Host(`shortlink`)"
+      service: url-service
       entryPoints:
         - web
 
   services:
-    auth-service:
+    url-service:
       loadBalancer:
         servers:
-          - url: "http://auth-service:8000"
+          - url: "http://url-service:8000"

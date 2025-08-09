@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 # stable gcc version
 RUN apt-get update && apt-get install -y --no-install-recommends\
-    gcc=12.5 \
+    gcc=4:11.2.0-1 \
     && rm -rf /var/lib/apt/lists/*
 
 # stable poetry version
@@ -19,4 +19,4 @@ COPY . .
 
 ENV PYTHONPATH=/app/src
 
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload", "--reload-dir", "src"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--no-server-header", "--no-date-header", "--reload", "--reload-dir", "src"]

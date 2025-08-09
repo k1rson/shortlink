@@ -19,8 +19,9 @@ repos:
     rev: v0.1.6
     hooks:
       - id: ruff
-        args: [--fix, --exit-non-zero-on-fix]
+        args: [--fix, --exit-non-zero-on-fix, --no-cache]
       - id: ruff-format
+        args: [--no-cache]
 
   # Frontend хуки
   - repo: https://github.com/pre-commit/mirrors-eslint
